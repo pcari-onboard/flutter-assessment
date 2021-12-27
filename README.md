@@ -19,6 +19,17 @@
 - Manage profile view
     - Able to edit / delete profile
 
+----
+## `What you need to do?`
+- Fork this repo under your own Github account and make it public.
+- Develop an app with the given UI from [Figma] and API documentation from [Postman]
+- Please fulfil features given above
+
+____
+## Notes
+- The provided API is static (Update, Create, Delete) just a dummy response. 
+
+
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
     
    [Figma]: <https://www.figma.com/file/8vLosaoZAzn31yL9CuDLGp/Flutter-mockup-UI?node-id=0%3A1>
