@@ -44,7 +44,9 @@ dependencies:
   connectivity_plus: ^3.0.2
   dio: ^4.0.0
   equatable: ^2.0.5
+  responsive_framework: ^0.2.0
   font_awesome_flutter: ^10.1.0
+  upgrader: ^5.0.0
 
 dev_dependencies:
   flutter_test:
