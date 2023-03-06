@@ -29,7 +29,7 @@ class EnvironmentConfig {
       // baseApiUrl: 'https://recrave-aries.herokuapp.com',
       //baseApiUrl: 'http://10.0.2.2:3000',
       // baseApiUrl: 'http://0.0.0.0:3000',
-      baseApiUrl: 'https://',
+      baseApiUrl: 'https://reqres.in/api',
       // baseApiUrl:
       //    'http://ec2-13-229-125-40.ap-southeast-1.compute.amazonaws.com:3000'
       websocketUrl: 'wss://'
@@ -37,15 +37,17 @@ class EnvironmentConfig {
       );
 
   static const EnvironmentConfig staging = EnvironmentConfig._(
-      environment: EnvironmentType.staging,
-      baseApiUrl: 'https://',
-      websocketUrl: 'wss://');
+    environment: EnvironmentType.staging,
+    baseApiUrl: 'https://reqres.in/api/',
+    websocketUrl: 'wss://',
+  );
 
   /// Don't forget to change vapid key in app_constants for web production
   static const EnvironmentConfig prod = EnvironmentConfig._(
-      environment: EnvironmentType.prod,
-      baseApiUrl: 'https://',
-      websocketUrl: 'wss://');
+    environment: EnvironmentType.prod,
+    baseApiUrl: 'https://reqres.in/api/',
+    websocketUrl: 'wss://',
+  );
 
   ///endregion
 }

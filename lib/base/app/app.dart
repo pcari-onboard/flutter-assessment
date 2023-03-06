@@ -7,8 +7,8 @@ import 'package:upgrader/upgrader.dart';
 import '../routers/router.gr.dart' as router;
 
 /// This widget is the root of your application.
-class Recrave extends StatelessWidget {
-  Recrave({this.config = EnvironmentConfig.prod, Key? key}) : super(key: key);
+class App extends StatelessWidget {
+  App({this.config = EnvironmentConfig.prod, Key? key}) : super(key: key);
 
   final EnvironmentConfig config;
   final _router = router.Router();
@@ -43,23 +43,23 @@ class __MyMaterialAppState extends State<_MyMaterialApp> {
   Widget build(BuildContext context) => MaterialApp(
         debugShowCheckedModeBanner: false,
         builder: (context, _) => ResponsiveWrapper.builder(
-          UpgradeAlert(
-            child: MaterialApp.router(
-              title: 'app',
-              // localizationsDelegates: const [
-              //   AppLocalizations.delegate,
-              //   GlobalMaterialLocalizations.delegate,
-              //   GlobalWidgetsLocalizations.delegate,
-              //   GlobalCupertinoLocalizations.delegate,
-              // ],
-              // supportedLocales: AppLocalizations.supportedLocales,
-              routeInformationParser: widget._router.defaultRouteParser(),
-              routerDelegate: widget._router.delegate(
-                navigatorObservers: () => [],
-              ),
-              debugShowCheckedModeBanner: false,
+          // UpgradeAlert(
+          MaterialApp.router(
+            title: 'app',
+            // localizationsDelegates: const [
+            //   AppLocalizations.delegate,
+            //   GlobalMaterialLocalizations.delegate,
+            //   GlobalWidgetsLocalizations.delegate,
+            //   GlobalCupertinoLocalizations.delegate,
+            // ],
+            // supportedLocales: AppLocalizations.supportedLocales,
+            routeInformationParser: widget._router.defaultRouteParser(),
+            routerDelegate: widget._router.delegate(
+              navigatorObservers: () => [],
             ),
+            debugShowCheckedModeBanner: false,
           ),
+          // ),
           maxWidth: 500,
           minWidth: 350,
           defaultScale: false,

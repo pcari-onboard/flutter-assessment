@@ -1,4 +1,5 @@
 import 'package:assessment/base/app/config/environment_config.dart';
+import 'package:assessment/data/repositories/rest_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -34,8 +35,9 @@ class AppDependencies {
 
   List<Provider> get _httpClients => [
         Provider<Dio>(create: (context) => Dio()),
-        // Provider<RestService>(
-        //     create: (context) => RestService(baseUrl: config.baseApiUrl)),
+        Provider<RestService>(
+          create: (context) => RestService(baseUrl: config.baseApiUrl),
+        ),
       ];
 
   List<SingleChildWidget> get _dataStorages => [];
