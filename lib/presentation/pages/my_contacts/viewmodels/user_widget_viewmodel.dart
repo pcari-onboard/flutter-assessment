@@ -37,6 +37,7 @@ class UserWidgetViewmodel extends ChangeNotifier {
     duration: const Duration(milliseconds: 300),
     vsync: ticker,
   );
+
   late final Animation<double> animation = CurvedAnimation(
     parent: controller,
     curve: Curves.easeIn,

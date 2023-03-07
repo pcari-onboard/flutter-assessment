@@ -50,6 +50,7 @@ dependencies:
   google_fonts: ^4.0.3
   flutter_slidable: ^2.0.0
   hive: ^2.2.3
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:

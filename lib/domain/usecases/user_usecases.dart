@@ -26,8 +26,8 @@ class UpdateUserByIdUseCase {
 
   UpdateUserByIdUseCase({required this.repository});
 
-  Future<ContactEntity> execute(String id) async {
-    return repository.updateUserById(id);
+  Future<ContactEntity> execute(ContactEntity contact) async {
+    return repository.updateUserById(contact);
   }
 }
 
@@ -36,7 +36,7 @@ class DeleteUserByIdUseCase {
 
   DeleteUserByIdUseCase({required this.repository});
 
-  Future<ContactEntity> execute(String id) async {
-    return repository.deleteUserById(id);
+  Future<ContactEntity> execute(ContactEntity contact) async {
+    return repository.deleteUserById(contact);
   }
 }

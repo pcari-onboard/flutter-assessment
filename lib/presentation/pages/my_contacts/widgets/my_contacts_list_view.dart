@@ -1,8 +1,12 @@
+import 'dart:io';
+
+import 'package:assessment/base/utils/contact_permission.dart';
 import 'package:assessment/domain/entities/contact_entities/contact_entity.dart';
 import 'package:assessment/presentation/pages/my_contacts/viewmodels/user_viewmodel.dart';
 import 'package:assessment/presentation/pages/my_contacts/viewmodels/user_widget_viewmodel.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -61,7 +65,7 @@ class _MyContactsListViewState extends State<MyContactsListView> {
                     closeOnScroll: true,
                     endActionPane: ActionPane(
                       motion: const ScrollMotion(),
-                      extentRatio: 0.27,
+                      extentRatio: 0.33,
                       children: [
                         Expanded(
                           child: Stack(
@@ -79,34 +83,143 @@ class _MyContactsListViewState extends State<MyContactsListView> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      Container(
-                                        height: 21.0,
-                                        width: 21.0,
-                                        decoration: const BoxDecoration(
-                                          image: DecorationImage(
-                                            image: AssetImage(
-                                                'assets/images/edit.png'),
+                                      InkWell(
+                                        onTap: () async {
+                                          final _data = await context.router
+                                              .pushNamed(
+                                                  'profile/${data[index].id}/true');
+                                          _data != null
+                                              ? value.updateContact(
+                                                  _data as ContactEntity)
+                                              : null;
+                                        },
+                                        child: Container(
+                                          height: 21.0,
+                                          width: 21.0,
+                                          decoration: const BoxDecoration(
+                                            image: DecorationImage(
+                                              image: AssetImage(
+                                                  'assets/images/edit.png'),
+                                            ),
                                           ),
+                                          margin: const EdgeInsets.only(
+                                              right: 22.0),
                                         ),
-                                        margin:
-                                            const EdgeInsets.only(right: 22.0),
                                       ),
                                       Container(
                                         color: const Color(0XFFC5E2DE),
                                         width: 2.0,
                                         height: 36.0,
                                       ),
-                                      Container(
-                                        height: 24.01,
-                                        width: 19.43,
-                                        decoration: const BoxDecoration(
-                                          image: DecorationImage(
-                                            image: AssetImage(
-                                                'assets/images/delete.png'),
-                                          ),
+                                      InkWell(
+                                        onTap: () => showDialog(
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                              actionsAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              contentPadding: EdgeInsets.zero,
+                                              backgroundColor: Colors.white,
+                                              title: Text(
+                                                'Are you sure you want to delete\nthis contact?',
+                                                textAlign: TextAlign.center,
+                                                style: GoogleFonts.raleway(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              buttonPadding: EdgeInsets.zero,
+                                              actions: [
+                                                InkWell(
+                                                  onTap: () => {
+                                                    value.deleteContactById(
+                                                      data[index],
+                                                    ),
+                                                    Navigator.pop(context),
+                                                  },
+                                                  child: Container(
+                                                    height: 60.0,
+                                                    width: 160,
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                      border: Border(
+                                                        top: BorderSide(
+                                                          color:
+                                                              Color(0xFFDCDCDC),
+                                                          width: 2,
+                                                        ),
+                                                        right: BorderSide(
+                                                          color:
+                                                              Color(0xFFDCDCDC),
+                                                          width: 2,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        'Yes',
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style:
+                                                            GoogleFonts.raleway(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: const Color(
+                                                              0xFFFD1313),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () =>
+                                                      Navigator.pop(context),
+                                                  child: Container(
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                      border: Border(
+                                                        top: BorderSide(
+                                                          color:
+                                                              Color(0xFFDCDCDC),
+                                                          width: 2,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    height: 60.0,
+                                                    width: 160.0,
+                                                    child: Center(
+                                                      child: Text(
+                                                        'No',
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style:
+                                                            GoogleFonts.raleway(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: const Color(
+                                                              0xFF32BAA5),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ]),
                                         ),
-                                        margin:
-                                            const EdgeInsets.only(left: 21.0),
+                                        child: Container(
+                                          height: 24.01,
+                                          width: 19.43,
+                                          decoration: const BoxDecoration(
+                                            image: DecorationImage(
+                                              image: AssetImage(
+                                                  'assets/images/delete.png'),
+                                            ),
+                                          ),
+                                          margin:
+                                              const EdgeInsets.only(left: 21.0),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -126,7 +239,13 @@ class _MyContactsListViewState extends State<MyContactsListView> {
                       ),
                       // color: Colors.amberAccent,
                       child: ElevatedButton(
-                        onPressed: () => {context.navigateNamedTo('/profile')},
+                        onPressed: () async {
+                          final _data = await context.router
+                              .pushNamed('profile/${data[index].id}/false');
+                          _data != null
+                              ? value.updateContact(_data as ContactEntity)
+                              : null;
+                        },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
                             Colors.white,
@@ -231,14 +350,19 @@ class _MyContactsListViewState extends State<MyContactsListView> {
                                 ],
                               ),
                               const Expanded(child: SizedBox()),
-                              Container(
-                                width: 27.0,
-                                height: 23.0,
-                                margin: const EdgeInsets.only(right: 10.0),
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    image:
-                                        AssetImage('assets/images/Frame.png'),
+                              InkWell(
+                                onTap: () {
+                                  openEmailApp();
+                                },
+                                child: Container(
+                                  width: 27.0,
+                                  height: 23.0,
+                                  margin: const EdgeInsets.only(right: 10.0),
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      image:
+                                          AssetImage('assets/images/Frame.png'),
+                                    ),
                                   ),
                                 ),
                               ),

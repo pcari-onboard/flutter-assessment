@@ -4,6 +4,7 @@ import 'package:assessment/presentation/pages/my_contacts/widgets/my_contacts_li
 import 'package:assessment/presentation/pages/my_contacts/widgets/my_contacts_empty.dart';
 import 'package:assessment/presentation/pages/my_contacts/widgets/my_contacts_list_view_actions.dart';
 import 'package:assessment/presentation/pages/my_contacts/widgets/my_contacts_search_bar.dart';
+import 'package:assessment/presentation/pages/my_contacts/widgets/my_contacts_simmer.dart';
 import 'package:assessment/presentation/widgets/custom_bottom_navigation_bar.dart';
 import 'package:assessment/presentation/widgets/custom_floating_action_button.dart';
 import 'package:flutter/material.dart';
@@ -61,32 +62,29 @@ class _UserPage extends State<UserPage> with TickerProviderStateMixin {
       ),
       bottomNavigationBar: const CustomBottomNavigationBar(),
       floatingActionButton: const CustomFloatingActionButton(),
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: Consumer2<UserWidgetViewmodel, UserViewmodel>(
-            builder: (context, value, value2, child) => Column(
-              children: [
-                MyContactsSearchBar(border: border),
-                Expanded(
-                  child: Container(
-                    color: Colors.white,
-                    child: value.loading
-                        ? const Center(child: CircularProgressIndicator())
-                        : Column(
-                            children: [
-                              const MyContactsListViewActions(),
-                              (value2.users!.isEmpty && value.isAll!) ||
-                                      (!value.isAll! &&
-                                          value2.favourite.favourite.isEmpty)
-                                  ? const MyContactsEmpty()
-                                  : const MyContactsListView(),
-                            ],
-                          ),
+      body: SizedBox(
+        child: Consumer2<UserWidgetViewmodel, UserViewmodel>(
+          builder: (context, value, value2, child) => Column(
+            children: [
+              MyContactsSearchBar(border: border),
+              Expanded(
+                child: Container(
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      const MyContactsListViewActions(),
+                      value.loading
+                          ? const MyContactsSimmer()
+                          : (value2.users!.isEmpty && value.isAll!) ||
+                                  (!value.isAll! &&
+                                      value2.favourite.favourite.isEmpty)
+                              ? const MyContactsEmpty()
+                              : const MyContactsListView(),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

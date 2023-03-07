@@ -11,12 +11,14 @@ class UserViewmodel extends ChangeNotifier {
 
   final GetAllUsersUseCase getAllUsersUseCase;
   final UpdateUserByIdUseCase updateUserByIdUseCase;
+  final DeleteUserByIdUseCase deleteUserByIdUseCase;
   final DeleteUserByIdFromFavouriteUseCase deleteUserByIdFromFavouriteUseCase;
   final GetFavouriteUseCase getFavouriteUseCase;
   final AddUserByIdToFavouriteUseCase addUserByIdToFavouriteUseCase;
   final UserWidgetViewmodel userWidgetViewmodel;
 
   UserViewmodel({
+    required this.deleteUserByIdUseCase,
     required this.getFavouriteUseCase,
     required this.addUserByIdToFavouriteUseCase,
     required this.deleteUserByIdFromFavouriteUseCase,
@@ -44,6 +46,26 @@ class UserViewmodel extends ChangeNotifier {
 
   Future<void> deleteFromFavourite(ContactEntity contact) async {
     favourite = await deleteUserByIdFromFavouriteUseCase.execute(contact);
+    notifyListeners();
+  }
+
+  Future<void> updateContact(ContactEntity contact) async {
+    final _contact = users!.indexWhere(
+      (element) => element.id == contact.id,
+    );
+
+    users!.replaceRange(_contact, _contact + 1, [contact]);
+
+    notifyListeners();
+  }
+
+  Future<void> deleteContactById(ContactEntity contact) async {
+    final ContactEntity _deleted = await deleteUserByIdUseCase.execute(contact);
+
+    users!.removeWhere(
+      (element) => element.id == _deleted.id,
+    );
+
     notifyListeners();
   }
 }

@@ -90,6 +90,7 @@ class MyContactsDependencies {
     ),
     ChangeNotifierProvider<UserViewmodel>(
       create: (context) => UserViewmodel(
+        deleteUserByIdUseCase: context.read(),
         addUserByIdToFavouriteUseCase: context.read(),
         deleteUserByIdFromFavouriteUseCase: context.read(),
         getFavouriteUseCase: context.read(),
