@@ -1,3 +1,4 @@
+import 'package:assessment/base/utils/contact_permission.dart';
 import 'package:flutter/material.dart';
 
 import 'base/app/app.dart';
@@ -15,6 +16,8 @@ void main() async {
 
   // Configure global app tools before launching the app
   // await configureApp();
+  print('createNotificationChannel');
+  createNotificationChannel();
 
   runApp(App(config: EnvironmentConfig.prod));
 }

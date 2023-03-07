@@ -9,3 +9,20 @@ Future<void> openEmailApp() async {
     print(e);
   }
 }
+
+Future<void> snedNotification({String? title, String? description}) async {
+  try {
+    await platform.invokeMethod(
+        'sendNotification', {"title": title, "desc": description});
+  } on PlatformException catch (e) {
+    print(e);
+  }
+}
+
+Future<void> createNotificationChannel() async {
+  try {
+    await platform.invokeMethod('createNotificationChannel');
+  } on PlatformException catch (e) {
+    print(e);
+  }
+}

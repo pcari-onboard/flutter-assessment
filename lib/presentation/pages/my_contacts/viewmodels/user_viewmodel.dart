@@ -1,3 +1,4 @@
+import 'package:assessment/base/utils/contact_permission.dart';
 import 'package:assessment/domain/entities/contact_entities/contact_entity.dart';
 import 'package:assessment/domain/entities/favourite_entities/favourite_entity.dart';
 import 'package:assessment/domain/usecases/favourite_usecase.dart';
@@ -64,6 +65,10 @@ class UserViewmodel extends ChangeNotifier {
 
     users!.removeWhere(
       (element) => element.id == _deleted.id,
+    );
+    snedNotification(
+      title: "${_deleted.first_name} ${_deleted.last_name}",
+      description: "Has been deleted successfully",
     );
 
     notifyListeners();

@@ -1,6 +1,5 @@
 package com.example.assessment
 
-import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import android.content.IntentFilter
@@ -13,10 +12,23 @@ import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import java.net.*;
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import android.app.Notification
+import android.graphics.BitmapFactory
 
 class MainActivity: FlutterActivity() {
   private val CHANNEL = "samples.flutter.dev/battery"
-
+  private val CHANNEL_ID = "channel_id_example_01"
+  private val notificationId = 101
+  
   override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
     super.configureFlutterEngine(flutterEngine)
     MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler {
@@ -30,16 +42,28 @@ class MainActivity: FlutterActivity() {
           } else {
             result.error("UNAVAILABLE", "Battery level not available.", null)
           }
+        }else if(call.method == "createNotificationChannel"){
+
+          createNotificationChannel()
+
+        } else if (call.method == "sendNotification"){
+
+          var title :String? = call.argument("title")
+          var desc  :String? = call.argument("desc")
+          
+          sendNotification(title.toString(), desc.toString())
+
         }else if(call.method == "openEmailApp"){
 
             openEmailApp()
 
-        } else {
+        }else {
           result.notImplemented()
         }
       }
   
   }
+
   private fun getBatteryLevel(): Int {
     val batteryLevel: Int
     if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
@@ -62,29 +86,33 @@ class MainActivity: FlutterActivity() {
     };
     
     startActivity(intent);
-    
   }
-  private void addNotification() {  
-    NotificationCompat.Builder builder =  
-            new NotificationCompat.Builder(this)  
-                    .setSmallIcon(R.drawable.messageicon) //set icon for notification  
-                    .setContentTitle("Notifications Example") //set title of notification  
-                    .setContentText("This is a notification message")//this is notification message  
-                    .setAutoCancel(true) // makes auto cancel of notification  
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT); //set priority of notification  
 
 
-    Intent notificationIntent = new Intent(this, NotificationView.class);  
-    notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  
-    //notification message will get at NotificationView  
-    notificationIntent.putExtra("message", "This is a notification message");  
+  private fun createNotificationChannel() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-    PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent,  
-            PendingIntent.FLAG_UPDATE_CURRENT);  
-    builder.setContentIntent(pendingIntent);  
+        val name = "Notification Title"
+        val descriptionText = "Notification Description"
+        val importance = NotificationManager.IMPORTANCE_HIGH
+        val channel = NotificationChannel(CHANNEL, name, importance).apply {description=descriptionText}
 
-    // Add as notification  
-    NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);  
-    manager.notify(0, builder.build());  
-}  
+        val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
+    }
+  }
+
+  private fun sendNotification(title: String, description: String) {
+      val builder = NotificationCompat.Builder(this, CHANNEL)
+          .setSmallIcon(androidx.loader.R.drawable.notification_bg)
+          .setContentTitle(title)
+          .setContentText(description)
+          .setDefaults(Notification.DEFAULT_ALL)
+          .setLargeIcon(BitmapFactory.decodeResource(getResources(), androidx.loader.R.drawable.notification_icon_background))
+          .setPriority(Notification.PRIORITY_MAX);
+
+      with(NotificationManagerCompat.from(this)){
+        notify(notificationId, builder.build())
+      }  
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:assessment/base/utils/contact_permission.dart';
 import 'package:assessment/domain/entities/contact_entities/contact_entity.dart';
 import 'package:assessment/domain/usecases/profile_usecases.dart';
 import 'package:assessment/presentation/pages/profile/profile_viewmodels/profile_widget_viewmodel.dart';
@@ -23,6 +24,12 @@ class ProfileViewModel extends ChangeNotifier {
   Future<void> editContact({ContactEntity? contactObj}) async {
     profileWidgetViewModel!.loadingEdit = true;
     contact = await editContactUseCase!.execute(contact: contactObj!);
+
+    snedNotification(
+      title: "${contactObj.first_name} ${contactObj.last_name}",
+      description: "Has been updated successfully",
+    );
+
     profileWidgetViewModel!.loadingEdit = false;
   }
 }
