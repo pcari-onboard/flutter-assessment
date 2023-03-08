@@ -65,7 +65,7 @@ class _MyContactsListViewState extends State<MyContactsListView> {
                     closeOnScroll: true,
                     endActionPane: ActionPane(
                       motion: const ScrollMotion(),
-                      extentRatio: 0.33,
+                      extentRatio: 0.30,
                       children: [
                         Expanded(
                           child: Stack(
@@ -131,80 +131,93 @@ class _MyContactsListViewState extends State<MyContactsListView> {
                                               ),
                                               buttonPadding: EdgeInsets.zero,
                                               actions: [
-                                                InkWell(
-                                                  onTap: () => {
-                                                    value.deleteContactById(
-                                                      data[index],
-                                                    ),
-                                                    Navigator.pop(context),
-                                                  },
-                                                  child: Container(
-                                                    height: 60.0,
-                                                    width: 160,
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                      border: Border(
-                                                        top: BorderSide(
-                                                          color:
-                                                              Color(0xFFDCDCDC),
-                                                          width: 2,
-                                                        ),
-                                                        right: BorderSide(
-                                                          color:
-                                                              Color(0xFFDCDCDC),
-                                                          width: 2,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    child: Center(
-                                                      child: Text(
-                                                        'Yes',
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style:
-                                                            GoogleFonts.raleway(
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color: const Color(
-                                                              0xFFFD1313),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                InkWell(
-                                                  onTap: () =>
-                                                      Navigator.pop(context),
-                                                  child: Container(
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                      border: Border(
-                                                        top: BorderSide(
-                                                          color:
-                                                              Color(0xFFDCDCDC),
-                                                          width: 2,
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: InkWell(
+                                                        onTap: () => {
+                                                          value
+                                                              .deleteContactById(
+                                                            data[index],
+                                                          ),
+                                                          Navigator.pop(
+                                                              context),
+                                                        },
+                                                        child: Container(
+                                                          height: 60.0,
+                                                          decoration:
+                                                              const BoxDecoration(
+                                                            border: Border(
+                                                              top: BorderSide(
+                                                                color: Color(
+                                                                    0xFFDCDCDC),
+                                                                width: 2,
+                                                              ),
+                                                              right: BorderSide(
+                                                                color: Color(
+                                                                    0xFFDCDCDC),
+                                                                width: 2,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          child: Center(
+                                                            child: Text(
+                                                              'Yes',
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: GoogleFonts
+                                                                  .raleway(
+                                                                fontSize: 16,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                color: const Color(
+                                                                    0xFFFD1313),
+                                                              ),
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                    height: 60.0,
-                                                    width: 160.0,
-                                                    child: Center(
-                                                      child: Text(
-                                                        'No',
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style:
-                                                            GoogleFonts.raleway(
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color: const Color(
-                                                              0xFF32BAA5),
+                                                    Expanded(
+                                                      child: InkWell(
+                                                        onTap: () =>
+                                                            Navigator.pop(
+                                                                context),
+                                                        child: Container(
+                                                          decoration:
+                                                              const BoxDecoration(
+                                                            border: Border(
+                                                              top: BorderSide(
+                                                                color: Color(
+                                                                    0xFFDCDCDC),
+                                                                width: 2,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          height: 60.0,
+                                                          child: Center(
+                                                            child: Text(
+                                                              'No',
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: GoogleFonts
+                                                                  .raleway(
+                                                                fontSize: 16,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                color: const Color(
+                                                                    0xFF32BAA5),
+                                                              ),
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
+                                                  ],
                                                 ),
                                               ]),
                                         ),

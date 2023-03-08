@@ -85,13 +85,12 @@ class MainActivity: FlutterActivity() {
     val mIntent = Intent(Intent.ACTION_SENDTO)
 
     mIntent.data = Uri.parse("mailto:")
-    mIntent.type = "text/plain"
  
     mIntent.putExtra(Intent.EXTRA_EMAIL, email)
     mIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
     mIntent.putExtra(Intent.EXTRA_TEXT, message)
 
-    startActivity(Intent.createChooser(mIntent, "Choose Email Client..."));
+    startActivity(mIntent);
   }
 
 
