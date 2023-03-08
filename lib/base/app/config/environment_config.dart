@@ -26,15 +26,8 @@ class EnvironmentConfig {
 
   static const EnvironmentConfig dev = EnvironmentConfig._(
       environment: EnvironmentType.dev,
-      // baseApiUrl: 'https://recrave-aries.herokuapp.com',
-      //baseApiUrl: 'http://10.0.2.2:3000',
-      // baseApiUrl: 'http://0.0.0.0:3000',
       baseApiUrl: 'https://reqres.in/api',
-      // baseApiUrl:
-      //    'http://ec2-13-229-125-40.ap-southeast-1.compute.amazonaws.com:3000'
-      websocketUrl: 'wss://'
-      // websocketUrl: 'ws://localhost:3000'
-      );
+      websocketUrl: 'wss://');
 
   static const EnvironmentConfig staging = EnvironmentConfig._(
     environment: EnvironmentType.staging,
