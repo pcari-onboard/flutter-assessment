@@ -352,7 +352,13 @@ class _MyContactsListViewState extends State<MyContactsListView> {
                               const Expanded(child: SizedBox()),
                               InkWell(
                                 onTap: () {
-                                  openEmailApp();
+                                  openEmailApp(
+                                    email: data[index].email,
+                                    subject:
+                                        "Testing sending an email by ${data[index].first_name} ${data[index].last_name}",
+                                    message:
+                                        "This is a native kotlin action using channel method! :)",
+                                  );
                                 },
                                 child: Container(
                                   width: 27.0,

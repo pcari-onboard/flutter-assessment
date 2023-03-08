@@ -75,7 +75,15 @@ class _ProfileBodyState extends State<ProfileBody> {
                       Color(0XFF32BAA5),
                     ),
                   ),
-                  onPressed: () => {openEmailApp()},
+                  onPressed: () => {
+                    openEmailApp(
+                      email: value.contact!.email,
+                      subject:
+                          "Testing sending an email by ${value.contact!.first_name} ${value.contact!.last_name}",
+                      message:
+                          "This is a native kotlin action using channel method! :)",
+                    ),
+                  },
                   child: Text(
                     'Send Email',
                     style: GoogleFonts.raleway(

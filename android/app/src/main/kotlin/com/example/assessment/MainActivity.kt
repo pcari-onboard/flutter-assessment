@@ -55,7 +55,11 @@ class MainActivity: FlutterActivity() {
 
         }else if(call.method == "openEmailApp"){
 
-            openEmailApp()
+          var email : String? = call.argument("email")
+          var subject : String? = call.argument("subject")
+          var message : String? = call.argument("message")
+
+          openEmailApp(email.toString(), subject.toString(), message.toString())
 
         }else {
           result.notImplemented()
@@ -77,15 +81,17 @@ class MainActivity: FlutterActivity() {
     return batteryLevel
   }
   
-  private fun openEmailApp() {
-    val intent =  Intent(Intent.ACTION_SENDTO).apply{
+  private fun openEmailApp(email: String, subject: String, message: String) {
+    val mIntent = Intent(Intent.ACTION_SENDTO)
 
-        data = Uri.parse("mailto:");
-        // putExtra(intent.EXTRA_SUBJECT, "message");
-        // putExtra(intent.EXTRA_TEXT, "body");
-    };
-    
-    startActivity(intent);
+    mIntent.data = Uri.parse("mailto:")
+    mIntent.type = "text/plain"
+ 
+    mIntent.putExtra(Intent.EXTRA_EMAIL, email)
+    mIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
+    mIntent.putExtra(Intent.EXTRA_TEXT, message)
+
+    startActivity(Intent.createChooser(mIntent, "Choose Email Client..."));
   }
 
 
